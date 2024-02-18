@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  webservice:
+    build: .
+    ports:
+      - "8001:8001"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: webservice-database
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db_data:/var/lib/mysql
